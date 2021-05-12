@@ -1,0 +1,4 @@
+[submodule "minisat"]
+	path = minisat
+	url = https://github.com/yvizel/minisat.git
+	branch = hw1
