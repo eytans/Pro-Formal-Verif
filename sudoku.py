@@ -15,10 +15,23 @@ def getMatrix():
 
 # Add constraints such that each cell contains a value in {1, ..., 9}
 def addCellConstraints(X):
-    le = [X[i][j] <= 9 for i in range(9) for j in range(9)]
-    ge = [X[i][j] >= 1 for i in range(9) for j in range(9)]
+    """
+    Commented out the LIA way of solving and instead using inequalities
+    :param X: Matrix of z3 variables
+    :return: If using LIA a conjunction of LE GE contraints on the variables in the matrix.
+             In the case on equality alone a list on inequalities with each number in the range.
+             Depending on how int is represented (probably bit set and then no problem)
+             I might need a set of equalities to maintain the wanted integers.
+             I am adding these just in case.
+    """
+    # LIA
+    # le = [X[i][j] <= 9 for i in range(9) for j in range(9)]
     # ge = [X[i][j] >= 1 for i in range(9) for j in range(9)]
-    return And(*(le + ge))
+    # return And(*(le + ge))
+
+    # Theory of equality
+    eq_constraints = (Or(*(X[i][j] == k for k in range(1, 10))) for i in range(9) for j in range(9))
+    return And(*eq_constraints)
 
 
 # Add constraints such that each row contains a digit at most once
